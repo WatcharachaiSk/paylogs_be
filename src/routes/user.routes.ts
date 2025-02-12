@@ -8,7 +8,8 @@ import {
 
 const router = Router();
 
-router.get("/", UserController.getUser);
+router.get("", UserController.getAll);
+router.get("/find", UserController.getUserByEmail);
 router.post("/register", UserController.register);
 router.post("/update", validate(updateUserSchema), UserController.update);
 router.post("/delete", validate(deleteUserSchema), UserController.softDelete);

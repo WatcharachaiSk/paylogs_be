@@ -22,7 +22,20 @@ class UserController {
       return;
     }
   }
-  async getUser(req: Request, res: Response) {
+  async getAll(req: Request, res: Response) {
+    try {
+      const users = await UserService.getAll();
+      res.status(200).json(users);
+      return;
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ message: error?.message || "Internal Server Error" });
+      return;
+    }
+  }
+
+  async getUserByEmail(req: Request, res: Response) {
     try {
       const email = req.query.email as string;
       if (_.isEmpty(email)) {
@@ -65,7 +78,7 @@ class UserController {
       const email = req.body.email as string;
       const user = await UserService.softDelete(email);
       console.log("user is ", user);
-      
+
       if (_.isEmpty(user)) {
         res.status(404).json({ message: "User not found" });
         return;

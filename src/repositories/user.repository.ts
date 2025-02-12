@@ -5,6 +5,10 @@ class UserRepository {
     return await User.create(data);
   }
 
+  async getAll(): Promise<IUser[] | null> {
+    return await User.find({ deletedAt: null }).select("-password");
+  }
+
   async getUserByEmail(email: string): Promise<IUser | null> {
     return await User.findOne({ email, deletedAt: null });
   }

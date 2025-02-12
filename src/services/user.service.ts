@@ -19,6 +19,11 @@ class UserService {
     return { status: 201, data: newUser };
   }
 
+  async getAll() {
+    const users = await UserRepository.getAll();
+    return users;
+  }
+
   async getUserByEmail(email: string) {
     const user = await UserRepository.getUserByEmail(email);
     if (!_.isEmpty(user)) {
