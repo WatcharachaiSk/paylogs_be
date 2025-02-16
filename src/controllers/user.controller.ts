@@ -77,8 +77,6 @@ class UserController {
     try {
       const email = req.body.email as string;
       const user = await UserService.softDelete(email);
-      console.log("user is ", user);
-
       if (_.isEmpty(user)) {
         res.status(404).json({ message: "User not found" });
         return;

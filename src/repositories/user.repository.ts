@@ -19,12 +19,12 @@ class UserRepository {
   ): Promise<IUser | null> {
     return await User.findOneAndUpdate({ email, deletedAt: null }, updateData, {
       new: true,
-    });
+    }).select("-password");
   }
 
   async softDelete(email: string): Promise<IUser | null> {
     return await User.findOneAndUpdate(
-      { email },
+      { email, deletedAt: null },
       { deletedAt: new Date() },
       { new: true }
     );
