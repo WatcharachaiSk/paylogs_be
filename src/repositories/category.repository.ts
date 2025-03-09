@@ -8,6 +8,9 @@ class CategoryRepository {
     const result = await Category.insertMany(data);
     return result;
   }
+  async getAll() {
+    return await Category.find();
+  }
 }
 
 export default new CategoryRepository();
