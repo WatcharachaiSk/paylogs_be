@@ -1,5 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthService } from "../services/auth.service";
+export interface JwtPayload {
+  id: string;
+  email: string;
+}
+
+export interface AuthenticatedRequest extends Request {
+  user?: JwtPayload;
+}
 
 export const authenticate = (
   req: Request,
