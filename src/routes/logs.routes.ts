@@ -7,7 +7,7 @@ import { validate } from "../middleware/validate";
 
 const router = Router();
 
-router.get("/", authenticate, LogsController.getAll);
+router.get("/user", authenticate, LogsController.getAllUser);
 router.post(
   "/",
   authenticate,

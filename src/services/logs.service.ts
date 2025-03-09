@@ -10,6 +10,14 @@ class LogsService {
     const Logs = await LogsRepository.getAll();
     return Logs;
   }
+  async getAllByUser(userId: string) {
+    const Logs = await LogsRepository.getAllByUser(userId);
+    return Logs;
+  }
+  async getById(id: string) {
+    const Logs = await LogsRepository.getLogsById(id);
+    return Logs;
+  }
 }
 
 export default new LogsService();

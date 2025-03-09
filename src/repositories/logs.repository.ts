@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Expense, { IExpense } from "../models/expenses.model";
 
 class LogsRepository {
@@ -7,9 +8,19 @@ class LogsRepository {
   async getAll() {
     return await Expense.find();
   }
-  async getLogsByEmail(email: string): Promise<IExpense[] | null> {
-    return await Expense.findOne({
-      email,
+  async getAllByUser(userId: string) {
+    const objectId = new mongoose.Types.ObjectId(userId);
+    return await Expense.find({
+      user: objectId,
+      deletedAt: null,
+    })
+      .populate("category")
+      .exec();
+  }
+  async getLogsById(id: string): Promise<IExpense[] | null> {
+    const objectId = new mongoose.Types.ObjectId(id);
+    return await Expense.find({
+      _id: objectId,
       deletedAt: null,
     });
   }
