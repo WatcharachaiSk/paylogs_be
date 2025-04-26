@@ -18,6 +18,16 @@ class LogsService {
     const Logs = await LogsRepository.getLogsById(id);
     return Logs;
   }
+  async update(id: string, data: Partial<IExpense>) {
+    const result = await LogsRepository.updateLogs(id, data);
+    return result;
+  }
+  async softDelete(id: string) {
+    const result = await LogsRepository.softDelete(id);
+    console.log("result is ", result);
+    
+    return result;
+  }
 }
 
 export default new LogsService();

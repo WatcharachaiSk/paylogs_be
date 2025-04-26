@@ -82,7 +82,7 @@ class UserController {
         return;
       }
 
-      res.status(200).json({ message: "delete success" + req.body.email });
+      res.status(200).json({ message: "delete success " + req.body.email });
       return;
     } catch (error: any) {
       res

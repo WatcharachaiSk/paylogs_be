@@ -15,11 +15,5 @@ router.post(
   validate(updateUserSchema),
   UserController.update
 );
-router.post(
-  "/delete",
-  authenticate,
-  validate(deleteUserSchema),
-  UserController.softDelete
-);
 
 export default router;

@@ -8,6 +8,7 @@ export interface IExpense extends Document {
   date: Date; // วันที่บันทึก
   createdAt: Date;
   updatedAt: Date;
+  deletedAt?: Date | null;
 }
 
 const ExpenseSchema = new Schema<IExpense>(
@@ -21,6 +22,7 @@ const ExpenseSchema = new Schema<IExpense>(
     },
     description: { type: String },
     date: { type: Date, required: true, default: Date.now },
+    deletedAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

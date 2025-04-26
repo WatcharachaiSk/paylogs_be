@@ -19,18 +19,20 @@ class LogsRepository {
   }
   async getLogsById(id: string): Promise<IExpense[] | null> {
     const objectId = new mongoose.Types.ObjectId(id);
-    return await Expense.find({
+    return await Expense.findOne({
       _id: objectId,
       deletedAt: null,
     });
   }
   async updateLogs(id: string, updateData: Partial<IExpense>) {
-    return await Expense.findByIdAndUpdate({ id, updateData }, { new: true });
+    return await Expense.findByIdAndUpdate(id, updateData, { new: true });
   }
   async softDelete(id: string) {
-    return await Expense.findByIdAndDelete(
-      { id, deletedAt: null },
-      { deletedAt: new Date() }
+    const objectId = new mongoose.Types.ObjectId(id);
+    return await Expense.findOneAndUpdate(
+      { _id: objectId, deletedAt: null },
+      { deletedAt: new Date() },
+      { new: true }
     );
   }
 }
