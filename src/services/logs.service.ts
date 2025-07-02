@@ -1,5 +1,6 @@
 import { IExpense } from "../models/expenses.model";
 import LogsRepository from "../repositories/logs.repository";
+import * as _ from "lodash";
 
 class LogsService {
   async create(data: Partial<IExpense>) {
@@ -10,8 +11,11 @@ class LogsService {
     const Logs = await LogsRepository.getAll();
     return Logs;
   }
-  async getAllByUser(userId: string) {
-    const Logs = await LogsRepository.getAllByUser(userId);
+  async getAllByUser(
+    userId: string,
+    query: { stDate: Date; endDate: Date; oderby: any }
+  ) {
+    const Logs = await LogsRepository.getAllByUser(userId, query);
     return Logs;
   }
   async getById(id: string) {
@@ -25,7 +29,7 @@ class LogsService {
   async softDelete(id: string) {
     const result = await LogsRepository.softDelete(id);
     console.log("result is ", result);
-    
+
     return result;
   }
 }

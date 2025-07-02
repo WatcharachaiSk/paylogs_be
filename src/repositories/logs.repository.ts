@@ -8,13 +8,21 @@ class LogsRepository {
   async getAll() {
     return await Expense.find();
   }
-  async getAllByUser(userId: string) {
+  async getAllByUser(
+    userId: string,
+    query: { stDate: Date; endDate: Date; oderby: any }
+  ) {
     const objectId = new mongoose.Types.ObjectId(userId);
     return await Expense.find({
       user: objectId,
       deletedAt: null,
+      createdAt: {
+        $gte: query.stDate,
+        $lte: query.endDate,
+      },
     })
       .populate("category")
+      .sort({ createdAt: query?.oderby })
       .exec();
   }
   async getLogsById(id: string): Promise<IExpense[] | null> {

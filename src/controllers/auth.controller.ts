@@ -8,10 +8,10 @@ class AuthController {
     try {
       const result = await AuthService.login(email, password);
 
-      //   if (result.status === 400) {
-      //     res.status(400).json({ message: result.message });
-      //     return;
-      //   }
+      if (result?.status) {
+        res.status(result?.status).json({ message: result.message });
+        return;
+      }
 
       res.status(201).json(result);
       return;
