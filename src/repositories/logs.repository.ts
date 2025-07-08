@@ -16,13 +16,13 @@ class LogsRepository {
     return await Expense.find({
       user: objectId,
       deletedAt: null,
-      createdAt: {
+      date: {
         $gte: query.stDate,
         $lte: query.endDate,
       },
     })
       .populate("category")
-      .sort({ createdAt: query?.oderby })
+      .sort({ date: query?.oderby })
       .exec();
   }
   async getLogsById(id: string): Promise<IExpense[] | null> {

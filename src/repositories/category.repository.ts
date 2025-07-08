@@ -9,7 +9,7 @@ class CategoryRepository {
     return result;
   }
   async getAll() {
-    return await Category.find();
+    return await Category.find().sort({ priority: 1 });
   }
 }
 

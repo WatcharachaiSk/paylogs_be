@@ -25,7 +25,7 @@ class LogsController {
         user: new mongoose.Types.ObjectId(userId),
       };
       const categories = await logsService.create(payload);
-      res.status(200).json(categories);
+      res.status(201).json(categories);
       return;
     } catch (error: any) {
       res
@@ -55,9 +55,9 @@ class LogsController {
         endDate: new Date(end),
         oderby: sortOption,
       };
-      // console.log("stDate is ", stDate);
-      // console.log("endDate is ", endDate);
-      // console.log("query is ", query);
+      console.log("stDate is ", stDate);
+      console.log("endDate is ", endDate);
+      console.log("query is ", query);
 
       const logs = await logsService.getAllByUser(userId, query);
       if (_.isEmpty(logs)) {
@@ -100,7 +100,7 @@ class LogsController {
         res.status(404).json({ message: "logs not found" });
         return;
       }
-      res.status(200).json(updateLogs);
+      res.status(201).json(updateLogs);
       return;
     } catch (error: any) {
       res
