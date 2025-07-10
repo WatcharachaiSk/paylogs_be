@@ -4,13 +4,18 @@ import categoryService from "../services/category.service";
 
 dotenv.config();
 
+let isConnected = false;
+
 const connectDB = async () => {
+  if (isConnected) return;
+
   try {
     await mongoose.connect(process.env.MONGO_URI as string);
-    console.log("MongoDB Connected...");
+    isConnected = true;
+    console.log("MongoDB Connected");
     await categoryService.seedCategories();
   } catch (error) {
-    console.error(error);
+    console.error("MongoDB connection error:", error);
     process.exit(1);
   }
 };

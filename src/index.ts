@@ -23,7 +23,7 @@ app.use(
 // );
 
 app.get("/", (req, res) => {
-  res.send("CORS Enabled for All Origins!");
+  res.send("Hi");
 });
 app.use(express.json());
 
