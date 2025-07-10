@@ -1,6 +1,6 @@
-import * as express from "express";
-import * as cors from "cors";
-import * as dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 import connectDB from "./config/db";
 import apiRoutes from "./routes";
 import errorHandler from "./middleware/error.middleware";
@@ -31,7 +31,7 @@ app.use("/api", apiRoutes);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 
 connectDB().then(() => {
   app.listen(PORT, () => {
