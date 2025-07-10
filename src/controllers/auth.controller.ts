@@ -22,6 +22,19 @@ class AuthController {
       return;
     }
   }
+  async loginGoogle(req: Request, res: Response) {
+    const { token } = req.body;
+    try {
+      const result = await AuthService.loginGoogle(token);
+      res.status(201).json(result);
+      return;
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ message: error?.message || "Internal Server Error" });
+      return;
+    }
+  }
 }
 
 export default new AuthController();

@@ -1,7 +1,7 @@
-import User, { IUser } from "../models/user.model";
+import User, { CreateUser, IUser } from "../models/user.model";
 
 class UserRepository {
-  async createUser(data: IUser): Promise<IUser> {
+  async createUser(data: CreateUser): Promise<IUser> {
     return await User.create(data);
   }
 

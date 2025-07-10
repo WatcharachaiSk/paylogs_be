@@ -9,6 +9,12 @@ export interface IUser extends Document {
   deletedAt?: Date | null;
 }
 
+export interface CreateUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const UserSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },

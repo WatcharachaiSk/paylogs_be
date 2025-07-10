@@ -1,10 +1,10 @@
 import UserRepository from "../repositories/user.repository";
-import { IUser } from "../models/user.model";
+import { CreateUser, IUser } from "../models/user.model";
 import { bcryptHash } from "../utils/bcryptData";
 import * as _ from "lodash";
 
 class UserService {
-  async registerUser(userData: IUser) {
+  async registerUser(userData: CreateUser) {
     const userExists = await UserRepository.getUserByEmail(userData.email);
     if (userExists) {
       return { status: 400, message: "User already exists" };
