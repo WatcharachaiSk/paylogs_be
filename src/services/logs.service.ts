@@ -16,6 +16,13 @@ class LogsService {
     query: { stDate: Date; endDate: Date; oderby: any }
   ) {
     const Logs = await LogsRepository.getAllByUser(userId, query);
+    if (!_.isEmpty(Logs)) {
+      const res = {
+        data: Logs,
+        sumAmount: _.sumBy(Logs, "amount"),
+      };
+      return res;
+    }
     return Logs;
   }
   async getById(id: string) {
