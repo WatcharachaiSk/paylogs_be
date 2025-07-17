@@ -11,6 +11,22 @@ class LogsService {
     const Logs = await LogsRepository.getAll();
     return Logs;
   }
+  async getDashboard(
+    userId: string,
+    query: { stDate: Date; endDate: Date; oderby: any }
+  ) {
+    const Logs = await LogsRepository.getGroupedByCategory(userId, query);
+    console.log("query is ", query);
+    
+    if (!_.isEmpty(Logs)) {
+      const res = {
+        data: Logs,
+        sumAmount: _.sumBy(Logs, "totalAmount"),
+      };
+      return res;
+    }
+    return Logs;
+  }
   async getAllByUser(
     userId: string,
     query: { stDate: Date; endDate: Date; oderby: any }

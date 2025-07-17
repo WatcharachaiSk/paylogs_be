@@ -73,6 +73,42 @@ class LogsController {
       return;
     }
   }
+  async getDashboard(req: AuthenticatedRequest, res: Response) {
+    const oderby = req.query.oderby as string;
+    const stDate = req.query.stDate as string;
+    const endDate = req.query.endDate as string;
+    const userId = req.user?.id;
+
+    const sortOption = _.toNumber(oderby) == 1 ? 1 : -1;
+
+    const start = stDate ? toStartOfDayUTC(stDate) : newToStartOfDayUTC();
+    const end = endDate ? toEndOfDayUTC(endDate) : newToEndOfDayUTC();
+
+    try {
+      if (!userId) {
+        res.status(401).json({ message: "Unauthorized: No userId" });
+        return;
+      }
+      const query = {
+        stDate: new Date(start),
+        endDate: new Date(end),
+        oderby: sortOption,
+      };
+
+      const logs = await logsService.getDashboard(userId, query);
+      if (_.isEmpty(logs)) {
+        res.status(404).json({ message: "logs not found" });
+        return;
+      }
+      res.status(200).json(logs);
+      return;
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ message: error?.message || "Internal Server Error" });
+      return;
+    }
+  }
   async getById(req: Request, res: Response) {
     try {
       const id = req?.params.id as string;
